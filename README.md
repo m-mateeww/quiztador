@@ -49,6 +49,16 @@ Frontend: `http://localhost:5173/`
 
 Vite dev сървърът проксира `/api` към Django, така че session и CSRF cookies работят в рамките на един origin.
 
+## Банка с въпроси
+
+Начални данни (6 категории, 12 choice и 12 numeric въпроса) от основната папка:
+
+```bash
+python backend/manage.py loaddata questions/question_bank.json
+```
+
+Въпросите се управляват през Django admin (`/admin/`).
+
 ## Тестове
 
 От папка `backend/`:
@@ -61,6 +71,8 @@ python manage.py test
 
 ```bash
 python manage.py test accounts
+python manage.py test questions
+python manage.py test games
 ```
 
 ## Authentication API
