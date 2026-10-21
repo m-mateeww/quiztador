@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Game, Player, Round
+from .models import Game, Player, Round, WaitingRoomEntry
 
 
 class PlayerInline(admin.TabularInline):
@@ -43,3 +43,10 @@ class RoundAdmin(admin.ModelAdmin):
     list_display = ("game", "number", "type", "status", "winner", "created_at", "completed_at")
     list_filter = ("game", "type", "status")
     list_select_related = ("game", "winner__user")
+
+
+@admin.register(WaitingRoomEntry)
+class WaitingRoomEntryAdmin(admin.ModelAdmin):
+    list_display = ("user", "created_at")
+    search_fields = ("user__username",)
+    list_select_related = ("user",)

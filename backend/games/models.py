@@ -210,3 +210,21 @@ class Round(models.Model):
         self.completed_at = timezone.now()
         self.full_clean()
         self.save(update_fields=["winner", "status", "completed_at"])
+
+
+class WaitingRoomEntry(models.Model):
+    """A user's current request to be matched into a new game."""
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="waiting_room_entry",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_at"]
+        verbose_name_plural = "waiting room entries"
+
+    def __str__(self):
+        return f"{self.user} waiting since {self.created_at:%Y-%m-%d %H:%M}"
